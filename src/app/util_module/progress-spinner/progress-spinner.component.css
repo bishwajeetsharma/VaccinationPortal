@@ -6,7 +6,7 @@
     top: 50%;
     transform: translate(-50%,-50%);
     width: 70px;
-    z-index: 3;
+    z-index: 998;
     opacity: 1;
     display: block;
 }

@@ -13,7 +13,7 @@ import { LoginComponent } from './body/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
-import { DialogComponent } from './body/dialog/dialog.component';
+import { DialogComponent } from './util_module/dialog/dialog.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ProgressSpinnerComponent } from './util_module/progress-spinner/progress-spinner.component';
 

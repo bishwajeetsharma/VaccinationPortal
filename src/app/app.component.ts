@@ -16,6 +16,6 @@ export class AppComponent implements OnInit {
     console.log(this.spinner);
     setTimeout(() => {
       this.spinner = this.utilService.loadedDataUnsetSpinner();
-    }, 7000);
+    }, 2000);
   }
 }
