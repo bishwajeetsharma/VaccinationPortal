@@ -1,0 +1,14 @@
+.example-card {
+    max-height: 30%;
+    max-width: 30%;
+    background-color: blanchedalmond;
+    float: left;
+    margin-left: auto;
+}
+
+.embed-responsive embed-responsive-16by9{
+    max-height: 30%;
+    max-width: 30%;
+    float: left;
+    margin-left: auto;
+}

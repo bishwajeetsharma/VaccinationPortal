@@ -1,0 +1,8 @@
+#dropdown {
+    display: table;
+    width: 100%;
+}
+
+.alignright {
+    float: right;
+}
