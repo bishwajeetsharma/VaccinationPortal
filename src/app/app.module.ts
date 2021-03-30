@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import{NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,7 +16,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { DialogComponent } from './util_module/dialog/dialog.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ProgressSpinnerComponent } from './util_module/progress-spinner/progress-spinner.component';
-
+import { UserRegisterFormComponent } from './body/user-register-form-component/user-register-form.component';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { RegisterDialogComponent } from './util_module/register-dialog/register-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,16 +30,21 @@ import { ProgressSpinnerComponent } from './util_module/progress-spinner/progres
     LoginComponent,
     DialogComponent,
     ProgressSpinnerComponent,
+    UserRegisterFormComponent,
+    RegisterDialogComponent,
   ],
   entryComponents: [LoginComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    NgbModule,
     MatCardModule,
     MatDialogModule,    
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    ReactiveFormsModule,FormsModule
   ],
   providers: [UtilService],
   bootstrap: [AppComponent],
