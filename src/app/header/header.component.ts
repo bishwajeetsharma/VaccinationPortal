@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../util_module/dialog/dialog.component';
 import { UtilService } from '../services/util.service';
+import { RegisterDialogComponent } from '../util_module/register-dialog/register-dialog.component';
+
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,6 @@ export class HeaderComponent implements OnInit {
   constructor(public dialog: MatDialog, private utilService: UtilService) {}
 
   ngOnInit(): void {}
-
   openDialog() {
     console.log('Login clicked');
     this.utilService.loadDataSetSpinner();
@@ -27,6 +28,12 @@ export class HeaderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog Closed');
+    });
+  }
+  openRegisterDialog() {
+    const registerDialog = this.dialog.open(RegisterDialogComponent, {
+      width: 'auto',
+      height: 'auto',
     });
   }
 }

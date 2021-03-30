@@ -1,0 +1,218 @@
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="registerform" (ngSubmit)="onSubmit()">
+    <div formGroupName="userdata">
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input
+          id="firstname"
+          type="text"
+          formControlName="firstname"
+          class="form-control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('userdata.firstname').invalid &&
+            registerform.get('userdata.firstname').touched
+          "
+          >*Firstname is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input
+          id="lastname"
+          type="text"
+          formControlName="lastname"
+          class="form-control"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('userdata.lastname').invalid &&
+            registerform.get('userdata.lastname').touched
+          "
+          >*Lastname is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <select class="form-control" id="gender" formControlName="gender">
+          <option>Female</option>
+          <option>Male</option>
+          <option>Other</option>
+        </select>
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('userdata.gender').invalid &&
+            registerform.get('userdata.gender').touched
+          "
+          >*Gender is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="contactno">Contact Number</label>
+        <input
+          type="text"
+          id="contactno"
+          class="form-control"
+          placeholder="+91"
+          formControlName="contactno"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('userdata.contactno').invalid &&
+            registerform.get('userdata.contactno').touched
+          "
+          >*Contact Number seems invalid</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="aadhar">UID</label>
+        <input
+          type="text"
+          id="aadhar"
+          class="form-control"
+          placeholder="xxxx-xxxx-xxxx"
+          formControlName="aadhar"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('userdata.aadhar').invalid &&
+            registerform.get('userdata.aadhar').touched
+          "
+          >*UID seems invalid</span
+        >
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dp"
+          formControlName="dob"
+          ngbDatepicker
+          #d="ngbDatepicker"
+          [minDate]="{ year: 1900, month: 1, day: 1 }"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar"
+            (click)="d.toggle()"
+            type="button"
+          >
+            Pick
+          </button>
+        </div>
+      </div>
+      <span
+        class="help-block"
+        *ngIf="
+          registerform.get('dob').invalid && registerform.get('dob').touched
+        "
+        >*DoB is required</span
+      >
+    </div>
+
+    <div formGroupName="locationdata">
+      <div class="form-group">
+        <label for="state">State</label>
+        <select
+          class="form-control"
+          id="state"
+          formControlName="state"
+          (change)="fetchCities($event.target.value)"
+        >
+          <option selected>Select a state</option>
+          <option *ngFor="let state of States">{{ state }}</option>
+        </select>
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('locationdata.state').invalid &&
+            registerform.get('locationdata.state').touched
+          "
+          >*State is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <select class="form-control" id="city" formControlName="city">
+          <option selected>Select a city</option>
+          <option *ngFor="let c of Cities">{{ c }}</option>
+        </select>
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('locationdata.city').invalid &&
+            registerform.get('locationdata.city').touched
+          "
+          >*City is required</span
+        >
+      </div>
+    </div>
+    <div formGroupName="authdata">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" class="form-control" formControlName="username" />
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('authdata.username').invalid &&
+            registerform.get('authdata.username').touched
+          "
+          >*Not a valid email</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            registerform.get('authdata.password').invalid &&
+            registerform.get('authdata.password').touched
+          "
+          >*Password must be at least 8 characters with one Uppercase ,one
+          Lowercase, one Digit and one special symbol(!,@,#,$,%,^,&,*)</span
+        >
+      </div>
+    </div>
+    <div class="form-group" *ngIf="registerform.get('authdata.password').valid">
+      <label for="confirm">Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="confirm"
+        formControlName="confirmPassword"
+      />
+      <span
+        class="help-block"
+        *ngIf="
+          registerform.get('confirmPassword').touched &&
+          registerform.errors?.mismatch
+        "
+        >*Password not same</span
+      >
+    </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="!registerform.valid"
+    >
+      Register
+    </button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
