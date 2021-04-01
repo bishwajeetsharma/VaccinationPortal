@@ -6,7 +6,3 @@ input.ng-invalid.ng-touched {
   font: italic;
   color: red;
 }
-
-.mat-typography {
-  /* overflow-x: hidden; */
-}
