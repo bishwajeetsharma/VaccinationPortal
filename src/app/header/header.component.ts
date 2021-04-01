@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   }
   openRegisterDialog() {
     const registerDialog = this.dialog.open(RegisterDialogComponent, {
-      width: 'auto',
+      width: '500px',
       height: 'auto',
     });
   }

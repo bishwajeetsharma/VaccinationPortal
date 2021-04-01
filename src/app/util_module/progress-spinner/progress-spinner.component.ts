@@ -1,5 +1,6 @@
+import { SpinnerService } from './../../services/spinner.service';
 
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -9,9 +10,23 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class ProgressSpinnerComponent implements OnInit {
   showSpinner = false;
-  constructor(private utilService: UtilService) {}
+  constructor(
+    private spinnerService: SpinnerService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.showSpinner = this.utilService.loadDataSetSpinner();
+    this.init();
+  }
+
+  init() {
+    this.spinnerService.getSpinnerObserver().subscribe((status) => {
+      if (status === 'start') {
+        this.showSpinner = true;
+      } else {
+        this.showSpinner = false;
+      }
+      this.cdRef.detectChanges();
+    });
   }
 }

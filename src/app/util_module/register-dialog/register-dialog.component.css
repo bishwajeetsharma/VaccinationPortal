@@ -1,0 +1,5 @@
+.custom-tabs .mat-tab-body-wrapper .mat-tab-body-content {
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid red;
+}

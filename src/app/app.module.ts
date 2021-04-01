@@ -20,6 +20,8 @@ import { UserRegisterFormComponent } from './body/user-register-form-component/u
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RegisterDialogComponent } from './util_module/register-dialog/register-dialog.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import { RegisterDialogComponent } from './util_module/register-dialog/register-
     MatTabsModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    ReactiveFormsModule,FormsModule
+    ReactiveFormsModule, FormsModule,
+    MatSnackBarModule
   ],
   providers: [UtilService],
   bootstrap: [AppComponent],

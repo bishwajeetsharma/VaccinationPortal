@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../services/spinner.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../model/user-register-data.model';
@@ -10,13 +11,16 @@ import { UserRegistrationService } from '../../services/user-registration.servic
   providers: [UserRegistrationService],
 })
 export class UserRegisterFormComponent implements OnInit {
-  constructor(
-    private parserFormatter: NgbDateParserFormatter,
-    private service: UserRegistrationService
-  ) {}
   registerform: FormGroup;
   Cities: string[] = [];
   States: string[] = [];
+  userregisterdata;
+
+  constructor(
+    private parserFormatter: NgbDateParserFormatter,
+    private service: UserRegistrationService,
+    private spinnerService: SpinnerService
+  ) {}
 
   match(control: FormControl) {
     if (
@@ -26,6 +30,7 @@ export class UserRegisterFormComponent implements OnInit {
       return { mismatch: true };
     else return null;
   }
+
   ngOnInit(): void {
     this.registerform = new FormGroup(
       {
@@ -45,8 +50,8 @@ export class UserRegisterFormComponent implements OnInit {
         dob: new FormControl('', Validators.required),
 
         locationdata: new FormGroup({
-          state: new FormControl('', Validators.required),
-          city: new FormControl('', Validators.required),
+          state: new FormControl('',),
+          city: new FormControl('',),
         }),
 
         authdata: new FormGroup({
@@ -68,13 +73,37 @@ export class UserRegisterFormComponent implements OnInit {
       },
       this.match
     );
-    this.States = this.service.fetchStates();
+    this.spinnerService.requestStarted();
+    this.service.fetchStates().subscribe(
+      (data: any) => {
+        this.spinnerService.requestEnded();
+        for (var i = 0; i < data.length; i++) this.States.push(data[i].region);
+      },
+      (error) => {
+        this.spinnerService.resetSpinner();
+        console.log(error);
+      }
+    );
   }
+
   fetchCities(state: string) {
-    this.Cities = this.service.fetchCityService(state);
+    let city: string[] = [];
+    this.spinnerService.requestStarted();
+    this.service.fetchCityService(state).subscribe(
+      (data: any) => {
+        this.spinnerService.requestEnded();
+        for (var i = 0; i < data.length; i++) city.push(data[i].city);
+        this.Cities = city;
+      },
+      (error) => {
+        this.spinnerService.requestEnded();
+        console.log(error);
+      }
+    );
   }
-  userregisterdata;
+
   onSubmit() {
+    this.spinnerService.requestStarted();
     this.userregisterdata = new UserRegisterData(
       this.registerform.get('userdata').value,
       this.registerform.get('locationdata').value,
@@ -83,7 +112,18 @@ export class UserRegisterFormComponent implements OnInit {
     this.userregisterdata.user.dob = this.parserFormatter.format(
       this.registerform.controls['dob'].value
     );
-    this.service.registerservice(this.userregisterdata);
-    console.log(this.userregisterdata);
+    this.service.registerservice(this.userregisterdata).subscribe(
+      (data: any) => {
+        console.log('5');
+        this.spinnerService.requestEnded();
+        let message = data;
+        console.log(message);
+      },
+      (error) => {
+        console.log('6');
+        this.spinnerService.resetSpinner();
+        console.log(error);
+      }
+    );
   }
 }

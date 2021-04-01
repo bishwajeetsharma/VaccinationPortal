@@ -1,3 +1,4 @@
+<app-progress-spinner></app-progress-spinner>
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="registerform" (ngSubmit)="onSubmit()">
     <div formGroupName="userdata">
@@ -59,6 +60,7 @@
           class="form-control"
           placeholder="+91"
           formControlName="contactno"
+          maxlength="10"
         />
         <span
           class="help-block"
@@ -77,6 +79,7 @@
           class="form-control"
           placeholder="xxxx-xxxx-xxxx"
           formControlName="aadhar"
+          maxlength="12"
         />
         <span
           class="help-block"
@@ -213,6 +216,7 @@
     </button>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

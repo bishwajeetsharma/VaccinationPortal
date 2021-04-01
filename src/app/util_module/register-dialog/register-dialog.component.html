@@ -2,9 +2,14 @@
   mat-align-tabs="start"
   #tabRef
   (selectedTabChange)="onTabChange(tabRef.selectedIndex)"
+  class="custom-tabs"
 >
   <mat-tab label="User"
-    ><app-user-register-form></app-user-register-form
+    ><div style="overflow: hidden; width: auto; height: auto">
+      <app-user-register-form></app-user-register-form></div
   ></mat-tab>
-  <mat-tab label="Doctor"><app-login></app-login></mat-tab>
+  <mat-tab label="Doctor"
+    ><div style="overflow: hidden; width: auto; height: auto">
+      <app-login></app-login></div
+  ></mat-tab>
 </mat-tab-group>

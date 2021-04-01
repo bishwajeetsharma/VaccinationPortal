@@ -1,3 +1,4 @@
+<div class="overlay" *ngIf="showOverlay"></div>
 <app-progress-spinner *ngIf="spinner; else loadComponents"></app-progress-spinner>
 <ng-template #loadComponents>
   <app-header> </app-header>
