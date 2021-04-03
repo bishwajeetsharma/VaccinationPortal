@@ -1,0 +1,135 @@
+[
+    {
+        "city": "Bankura",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "23.25000000",
+        "longitude": "87.25000000"
+    },
+    {
+        "city": "Barddhaman",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "23.25000000",
+        "longitude": "87.75000000"
+    },
+    {
+        "city": "Birbhum",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "24.00000000",
+        "longitude": "87.58332825"
+    },
+    {
+        "city": "Dakshin Dinajpur",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "25.21999931",
+        "longitude": "88.76000214"
+    },
+    {
+        "city": "Darjiling",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "26.75000000",
+        "longitude": "88.25000000"
+    },
+    {
+        "city": "Haora",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "22.60000038",
+        "longitude": "88.25000000"
+    },
+    {
+        "city": "Hugli",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "22.82892990",
+        "longitude": "88.20098877"
+    },
+    {
+        "city": "Jalpaiguri",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "26.51973915",
+        "longitude": "88.71459961"
+    },
+    {
+        "city": "Koch Bihar",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "26.25000000",
+        "longitude": "89.50000000"
+    },
+    {
+        "city": "Kolkata",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "22.54733086",
+        "longitude": "88.37368011"
+    },
+    {
+        "city": "Maldah",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "25.00000000",
+        "longitude": "88.00000000"
+    },
+    {
+        "city": "Murshidabad",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "24.10000038",
+        "longitude": "88.25000000"
+    },
+    {
+        "city": "Nadia",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "23.25000000",
+        "longitude": "88.50000000"
+    },
+    {
+        "city": "North 24 Parganas",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "22.70999908",
+        "longitude": "88.71080017"
+    },
+    {
+        "city": "Paschim Medinipur",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "22.40813065",
+        "longitude": "87.38107300"
+    },
+    {
+        "city": "Purba Medinipur",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "21.93732071",
+        "longitude": "87.77632904"
+    },
+    {
+        "city": "Puruliya",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "23.33333015",
+        "longitude": "86.41667175"
+    },
+    {
+        "city": "South 24 Parganas",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "22.16197014",
+        "longitude": "88.43170166"
+    },
+    {
+        "city": "Uttar Dinajpur",
+        "region": "West Bengal",
+        "country": "in",
+        "latitude": "25.61400032",
+        "longitude": "88.12599945"
+    }
+]

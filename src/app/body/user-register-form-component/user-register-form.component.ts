@@ -52,8 +52,8 @@ export class UserRegisterFormComponent implements OnInit {
         dob: new FormControl('', Validators.required),
 
         locationdata: new FormGroup({
-          state: new FormControl(''),
-          city: new FormControl(''),
+          state: new FormControl('', Validators.required),
+          city: new FormControl('', Validators.required),
         }),
 
         authdata: new FormGroup({

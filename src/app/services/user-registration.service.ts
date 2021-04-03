@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { UserRegisterData } from '../model/user-register-data.model';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserRegisterData } from '../model/user-register-data.model';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,22 +11,23 @@ export class UserRegistrationService {
   constructor(private http: HttpClient) {}
 
   fetchStates(): Observable<any> {
-    return this.http.get('/api/region/in/all/', {
-      params: new HttpParams().set('key', '5eac16a8c47ac0fb44add21f98f15c9d'),
+    console.log(environment.production);
+    return this.http.get(environment.api_config.states_api, {
+      params: new HttpParams().set('key', environment.api_config.external_api_key),
     });
   }
 
   fetchCityService(state: string): Observable<any> {
-    return this.http.get('/api/city/in/search/', {
+    return this.http.get(environment.api_config.cities_api, {
       params: new HttpParams()
         .set('region', state)
-        .set('key', '5eac16a8c47ac0fb44add21f98f15c9d'),
+        .set('key', environment.api_config.external_api_key),
     });
   }
 
   registerservice(userregisterdata: UserRegisterData): Observable<any> {
     return this.http.post(
-      'http://localhost:8080/registeruser',
+      environment.api_config.base_url + "registeruser",
       userregisterdata,
       {}
     );

@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  api_config: {
+    base_url: 'http://localhost:8080/',
+    states_api: '../assets/States&Cities/states.json',
+    cities_api: '../assets/States&Cities/cities.json',
+    external_api_key: '',
+  },
 };
 
 /*
