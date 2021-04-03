@@ -13,7 +13,7 @@ import { RegistrationForm } from './registration-form';
   selector: 'app-user-register-form',
   templateUrl: './user-register-form.component.html',
   styleUrls: ['./user-register-form.component.css'],
-  providers: [UserRegistrationService],
+  // providers: [UserRegistrationService],
 })
 export class UserRegisterFormComponent implements OnInit {
   registerform: FormGroup;

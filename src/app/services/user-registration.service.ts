@@ -26,7 +26,7 @@ export class UserRegistrationService {
 
   registerservice(userregisterdata: UserRegisterData): Observable<any> {
     return this.http.post(
-      environment.api_config.base_url + "registeruser",
+      environment.api_config.base_url + "/user/registeruser",
       userregisterdata,
       {}
     );
