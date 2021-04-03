@@ -42,6 +42,10 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 5000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
+      closeButton: true,
+      maxOpened: 3,
+      autoDismiss: true,
+      newestOnTop: true      
     }),
     BrowserModule,
     BrowserAnimationsModule,
