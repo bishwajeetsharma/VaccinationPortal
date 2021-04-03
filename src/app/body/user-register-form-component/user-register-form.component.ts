@@ -2,9 +2,13 @@ import { SpinnerService } from './../../services/spinner.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../model/user-register-data.model';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDateParserFormatter,
+  NgbDatepickerConfig,
+} from '@ng-bootstrap/ng-bootstrap';
 import { UserRegistrationService } from '../../services/user-registration.service';
 import { ToastrService } from 'ngx-toastr';
+import { RegistrationForm } from './registration-form';
 @Component({
   selector: 'app-user-register-form',
   templateUrl: './user-register-form.component.html',
@@ -21,60 +25,21 @@ export class UserRegisterFormComponent implements OnInit {
     private parserFormatter: NgbDateParserFormatter,
     private service: UserRegistrationService,
     private spinnerService: SpinnerService,
-    private toastrService: ToastrService
-  ) {}
-
-  match(control: FormControl) {
-    if (
-      control.get('authdata.password').value !==
-      control.get('confirmPassword').value
-    )
-      return { mismatch: true };
-    else return null;
+    private toastrService: ToastrService,
+    private config: NgbDatepickerConfig
+  ) {
+    let date = new Date();
+    config.maxDate = {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1 ,
+      day: date.getDate()
+    };
+    config.minDate = { year: 1900, month: 1, day: 1 };
   }
 
   ngOnInit(): void {
-    this.registerform = new FormGroup(
-      {
-        userdata: new FormGroup({
-          firstname: new FormControl('', Validators.required),
-          lastname: new FormControl('', Validators.required),
-          gender: new FormControl('', Validators.required),
-          contactno: new FormControl('', [
-            Validators.required,
-            Validators.pattern(new RegExp('^[0-9]{10}$')),
-          ]),
-          aadhar: new FormControl('', [
-            Validators.required,
-            Validators.pattern(new RegExp('^[0-9]{12}$')),
-          ]),
-        }),
-        dob: new FormControl('', Validators.required),
-
-        locationdata: new FormGroup({
-          state: new FormControl('', Validators.required),
-          city: new FormControl('', Validators.required),
-        }),
-
-        authdata: new FormGroup({
-          username: new FormControl('', [
-            Validators.required,
-            Validators.email,
-          ]),
-          password: new FormControl('', [
-            Validators.required,
-            Validators.pattern(
-              new RegExp(
-                '(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*-])(?=.{8,})'
-              )
-            ),
-          ]),
-        }),
-
-        confirmPassword: new FormControl('', Validators.required),
-      },
-      this.match
-    );
+    let form = new RegistrationForm();
+    this.registerform = form.getRegistrationForm();
     this.spinnerService.requestStarted();
     this.service.fetchStates().subscribe(
       (data: any) => {

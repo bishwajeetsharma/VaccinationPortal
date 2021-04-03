@@ -11,7 +11,6 @@ export class UserRegistrationService {
   constructor(private http: HttpClient) {}
 
   fetchStates(): Observable<any> {
-    console.log(environment.production);
     return this.http.get(environment.api_config.states_api, {
       params: new HttpParams().set('key', environment.api_config.external_api_key),
     });
