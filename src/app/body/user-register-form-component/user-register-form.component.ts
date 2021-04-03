@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../model/user-register-data.model';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { UserRegistrationService } from '../../services/user-registration.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-register-form',
   templateUrl: './user-register-form.component.html',
@@ -19,7 +20,8 @@ export class UserRegisterFormComponent implements OnInit {
   constructor(
     private parserFormatter: NgbDateParserFormatter,
     private service: UserRegistrationService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private toastrService: ToastrService
   ) {}
 
   match(control: FormControl) {
@@ -50,8 +52,8 @@ export class UserRegisterFormComponent implements OnInit {
         dob: new FormControl('', Validators.required),
 
         locationdata: new FormGroup({
-          state: new FormControl('',),
-          city: new FormControl('',),
+          state: new FormControl(''),
+          city: new FormControl(''),
         }),
 
         authdata: new FormGroup({
@@ -76,10 +78,18 @@ export class UserRegisterFormComponent implements OnInit {
     this.spinnerService.requestStarted();
     this.service.fetchStates().subscribe(
       (data: any) => {
+        this.toastrService.success(
+          'Received Response for States',
+          'Successfully fetched Response'
+        );
         this.spinnerService.requestEnded();
         for (var i = 0; i < data.length; i++) this.States.push(data[i].region);
       },
       (error) => {
+        this.toastrService.error(
+          'Response for States Failed',
+          'Failure in fetching Response'
+        );
         this.spinnerService.resetSpinner();
         console.log(error);
       }
@@ -91,11 +101,19 @@ export class UserRegisterFormComponent implements OnInit {
     this.spinnerService.requestStarted();
     this.service.fetchCityService(state).subscribe(
       (data: any) => {
+        this.toastrService.success(
+          'Received Response for Cities',
+          'Successfully fetched Response'
+        );
         this.spinnerService.requestEnded();
         for (var i = 0; i < data.length; i++) city.push(data[i].city);
         this.Cities = city;
       },
       (error) => {
+        this.toastrService.error(
+          'Response for Cities Failed',
+          'Failure in fetching Response'
+        );
         this.spinnerService.requestEnded();
         console.log(error);
       }
@@ -117,9 +135,14 @@ export class UserRegisterFormComponent implements OnInit {
         this.spinnerService.requestEnded();
         let message = data;
         console.log(message);
+        this.toastrService.success(message, 'Registration Successful');
       },
       (error) => {
         this.spinnerService.resetSpinner();
+        this.toastrService.error(
+          'Registraion Unsuccessful.Please try again later!',
+          'Registration Failed. Please Try Again!'
+        );
         console.log(error);
       }
     );

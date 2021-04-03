@@ -21,6 +21,7 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RegisterDialogComponent } from './util_module/register-dialog/register-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
   ],
   entryComponents: [LoginComponent],
   imports: [
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
