@@ -114,13 +114,11 @@ export class UserRegisterFormComponent implements OnInit {
     );
     this.service.registerservice(this.userregisterdata).subscribe(
       (data: any) => {
-        console.log('5');
         this.spinnerService.requestEnded();
         let message = data;
         console.log(message);
       },
       (error) => {
-        console.log('6');
         this.spinnerService.resetSpinner();
         console.log(error);
       }
