@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import{NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,14 +12,16 @@ import { UtilService } from './services/util.service';
 import { LoginComponent } from './body/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { DialogComponent } from './util_module/dialog/dialog.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProgressSpinnerComponent } from './util_module/progress-spinner/progress-spinner.component';
 import { UserRegisterFormComponent } from './body/user-register-form-component/user-register-form.component';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterDialogComponent } from './util_module/register-dialog/register-dialog.component';
+import { AuthenticationServiceService } from './services/authentication-service.service';
+import {UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -35,6 +37,7 @@ import { ToastrModule } from 'ngx-toastr';
     ProgressSpinnerComponent,
     UserRegisterFormComponent,
     RegisterDialogComponent,
+    UserDashboardComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
@@ -52,14 +55,22 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     NgbModule,
     MatCardModule,
-    MatDialogModule,    
+    MatDialogModule,
     MatTabsModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    ReactiveFormsModule, FormsModule,
-    MatSnackBarModule
+    ReactiveFormsModule,
+    FormsModule,
+    MatSnackBarModule,
   ],
-  providers: [UtilService],
+  providers: [
+    UtilService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationServiceService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
