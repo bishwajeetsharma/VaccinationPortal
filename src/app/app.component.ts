@@ -7,6 +7,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { LoginLogoutService } from './services/login-logout.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   showOverlay: boolean = false;
   constructor(
     private spinnerService: SpinnerService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private loginservice:LoginLogoutService
   ) {}
 
   ngAfterViewChecked(): void {
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
       this.spinner = false;
     }, 3000);
     this.cdRef.detectChanges();
+     this.loginservice.autoLogin();
   }
 
   ngAfterViewInit(): void {

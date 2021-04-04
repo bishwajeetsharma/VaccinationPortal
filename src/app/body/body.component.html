@@ -51,7 +51,7 @@
     <span class="carousel-control-next-icon"></span>
   </a>
 </div>
-
+<div *ngIf="!isLoggedin; else isLoggedout">
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h2><p class="text-center">News about Corona Virus</p></h2>
@@ -150,3 +150,7 @@
     </div>
   </div>
 </div>
+</div>
+<ng-template #isLoggedout>
+  <app-user-dashboard></app-user-dashboard>
+</ng-template>
