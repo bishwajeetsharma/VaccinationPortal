@@ -5,7 +5,7 @@ import { LoginResponse } from '../model/login-response.model';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +17,10 @@ export class LoginLogoutService {
 
   login(loginrequest: LoginRequest) {
     return this.http
-      .post<LoginResponse>('http://localhost:8080/login', loginrequest)
+      .post<LoginResponse>(
+        environment.api_config.base_url + 'login',
+        loginrequest
+      )
       .pipe(
         tap((data: LoginResponse) => {
           console.log(data);
@@ -30,9 +33,10 @@ export class LoginLogoutService {
 
           console.log(Userdata);
           this.principal.next(Userdata);
-          const expirationCounter = Userdata.getExpDate() - new Date().getTime();
+          const expirationCounter =
+            Userdata.getExpDate() - new Date().getTime();
           console.log(expirationCounter);
-          localStorage.setItem('presentLogin',JSON.stringify(Userdata));
+          localStorage.setItem('presentLogin', JSON.stringify(Userdata));
           this.autologout(expirationCounter);
         })
       );

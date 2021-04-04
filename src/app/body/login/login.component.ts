@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginRequest } from 'src/app/model/login-request.model';
 import { LoginResponse } from 'src/app/model/login-response.model';
 import { LoginLogoutService } from 'src/app/services/login-logout.service';
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginservice: LoginLogoutService,
     private spinnerService: SpinnerService,
-    private router: Router
+    private router: Router,
+    private toastrservice: ToastrService
   ) {}
   loginForm: FormGroup;
   loginrequest: LoginRequest;
@@ -36,8 +38,12 @@ export class LoginComponent implements OnInit {
       this.loginForm.get('password').value
     );
     this.loginservice.login(this.loginrequest).subscribe(
-      (data:LoginResponse) => {
-        console.log("data");
+      (data: LoginResponse) => {
+        this.toastrservice.success(
+          'Successfully Logged in!',
+          'Login Successful'
+        );
+
         console.log(data);
         this.loginresponse = data;
         this.spinnerService.requestEnded();
@@ -45,10 +51,13 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       },
       (error: HttpErrorResponse) => {
-        console.log('error occured');
+        this.errormsg = error.error.message;
+        this.toastrservice.error(
+          this.errormsg,
+          'Login Failed'
+        );
         this.spinnerService.resetSpinner();
         console.log(error);
-        this.errormsg = error.error.message;
         this.iserror = true;
       }
     );

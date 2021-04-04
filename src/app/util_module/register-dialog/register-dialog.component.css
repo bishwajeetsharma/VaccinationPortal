@@ -3,3 +3,9 @@
     overflow: hidden;
     border: 1px solid red;
 }
+
+.mat-body-content {
+    overflow: hidden;
+    width: auto;
+    height: auto
+}

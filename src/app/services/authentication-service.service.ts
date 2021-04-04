@@ -7,7 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { LoginLogoutService } from './login-logout.service';
 import { take, exhaustMap } from 'rxjs/operators';
-
+import { environment } from '../../environments/environment';
 @Injectable()
 export class AuthenticationServiceService implements HttpInterceptor {
   constructor(private service: LoginLogoutService) {}
@@ -17,9 +17,10 @@ export class AuthenticationServiceService implements HttpInterceptor {
       exhaustMap((data) => {
         if (
           data !== null &&
-          req.url !== 'http://localhost:8080/user/register' &&
-          req.url !== 'http://localhost:8080/doctor/register' &&
-          (req.url==='http://localhost:8080/login'&& data.getExpDate() > new Date().getTime())
+          req.url !== environment.api_config.base_url + 'user/register' &&
+          req.url !== environment.api_config.base_url + 'doctor/register' &&
+          req.url === environment.api_config.base_url + 'login' &&
+          data.getExpDate() > new Date().getTime()
         ) {
           let modifiedurl = req.clone({
             headers: new HttpHeaders().append(

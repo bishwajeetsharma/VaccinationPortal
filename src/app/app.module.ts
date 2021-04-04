@@ -20,9 +20,11 @@ import { UserRegisterFormComponent } from './body/user-register-form-component/u
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterDialogComponent } from './util_module/register-dialog/register-dialog.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthenticationServiceService } from './services/authentication-service.service';
 import {UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +41,15 @@ import {UserDashboardComponent } from './user-dashboard/user-dashboard.component
   ],
   entryComponents: [LoginComponent],
   imports: [
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      closeButton: true,
+      maxOpened: 3,
+      autoDismiss: true,
+      newestOnTop: true      
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
