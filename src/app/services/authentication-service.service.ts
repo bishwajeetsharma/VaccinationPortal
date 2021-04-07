@@ -17,11 +17,11 @@ export class AuthenticationServiceService implements HttpInterceptor {
       exhaustMap((data) => {
         if (
           data !== null &&
-          req.url !== environment.api_config.base_url + 'user/register' &&
-          req.url !== environment.api_config.base_url + 'doctor/register' &&
-          req.url === environment.api_config.base_url + 'login' &&
-          data.getExpDate() > new Date().getTime()
+          req.url !== environment.api_config.base_url + 'user/registeruser' &&
+          req.url !== environment.api_config.base_url + 'doctor/registerdoctor' &&
+          req.url !== environment.api_config.base_url + 'authenticate/login' 
         ) {
+          console.log("interceptor worked!");
           let modifiedurl = req.clone({
             headers: new HttpHeaders().append(
               'Authorization',

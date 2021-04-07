@@ -18,7 +18,7 @@ export class LoginLogoutService {
   login(loginrequest: LoginRequest) {
     return this.http
       .post<LoginResponse>(
-        environment.api_config.base_url + 'login',
+        environment.api_config.base_url + 'authenticate/login',
         loginrequest
       )
       .pipe(
@@ -67,6 +67,7 @@ export class LoginLogoutService {
     );
     if (!newUser.getJwt()) {
       this.principal.next(newUser);
+      this.isLogin.next(true);
       this.autologout(newUser.getExpDate() - new Date().getTime());
     }
   }
