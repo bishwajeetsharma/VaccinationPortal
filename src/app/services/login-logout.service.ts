@@ -67,6 +67,7 @@ export class LoginLogoutService {
     );
     if (!newUser.getJwt()) {
       this.principal.next(newUser);
+      this.isLogin.next(true);
       this.autologout(newUser.getExpDate() - new Date().getTime());
     }
   }
