@@ -9,6 +9,7 @@ export const environment = {
     states_api: '../assets/States&Cities/states.json',
     cities_api: '../assets/States&Cities/cities.json',
     external_api_key: '',
+    external_hospital_api : 'https://api.rootnet.in/covid19-in/hospitals/medical-colleges'
   },
 };
 

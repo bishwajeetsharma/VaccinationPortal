@@ -24,6 +24,7 @@ import { AuthenticationServiceService } from './services/authentication-service.
 import {UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
+import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ToastrModule } from 'ngx-toastr';
     ProgressSpinnerComponent,
     UserRegisterFormComponent,
     RegisterDialogComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    DoctorRegisterComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
