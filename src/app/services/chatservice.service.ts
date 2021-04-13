@@ -19,8 +19,10 @@ export class ChatserviceService {
     private loginservice: LoginLogoutService
   ) {
     this.loginservice.principal.subscribe((data) => {
-      this.role = data.getRole();
-      this.id = data.getId();
+      if (data !== null) {
+        this.role = data.getRole();
+        this.id = data.getId();
+      }
     });
   }
   fetchParticipants() {
