@@ -24,7 +24,8 @@ import { AuthenticationServiceService } from './services/authentication-service.
 import {UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
-
+import { ChatboxComponent } from './chatbox/chatbox.component';
+import {NgChatModule} from 'ng-chat';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { ToastrModule } from 'ngx-toastr';
     ProgressSpinnerComponent,
     UserRegisterFormComponent,
     RegisterDialogComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    ChatboxComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
@@ -62,6 +64,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
+    NgChatModule
   ],
   providers: [
     UtilService,

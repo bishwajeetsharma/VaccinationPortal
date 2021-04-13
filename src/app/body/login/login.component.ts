@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.spinnerService.requestStarted();
     this.loginrequest = new LoginRequest(
       this.loginForm.get('username').value,
-      this.loginForm.get('password').value
+      this.loginForm.get('password').value,
     );
     this.loginservice.login(this.loginrequest).subscribe(
       (data: LoginResponse) => {
