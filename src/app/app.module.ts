@@ -24,6 +24,8 @@ import { AuthenticationServiceService } from './services/authentication-service.
 import {UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
+import { ChatboxComponent } from './chatbox/chatbox.component';
+import {NgChatModule} from 'ng-chat';
 import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.component';
 
 @NgModule({
@@ -39,6 +41,7 @@ import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.
     UserRegisterFormComponent,
     RegisterDialogComponent,
     UserDashboardComponent,
+    ChatboxComponent,
     DoctorRegisterComponent
   ],
   entryComponents: [LoginComponent],
@@ -64,6 +67,7 @@ import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
+    NgChatModule
   ],
   providers: [
     UtilService,

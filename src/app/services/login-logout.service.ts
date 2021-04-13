@@ -18,17 +18,21 @@ export class LoginLogoutService {
   login(loginrequest: LoginRequest) {
     return this.http
       .post<LoginResponse>(
-        environment.api_config.base_url + 'authenticate/login',
+        environment.api_config.base_url +'authenticate/login',
         loginrequest
       )
       .pipe(
         tap((data: LoginResponse) => {
           console.log(data);
           const Userdata = new LoginResponse(
+            data['firstname'],
+            data['lastname'],
+            data['id'],
             data['username'],
             data['password'],
             data['jwt'],
-            data['expirationDate']
+            data['expirationDate'],
+            data['role']
           );
 
           console.log(Userdata);
@@ -57,14 +61,20 @@ export class LoginLogoutService {
   }
 
   autoLogin() {
+    console.log("Auto login started");
     const loggedinUser = JSON.parse(localStorage.getItem('presentLogin'));
     if (!loggedinUser) return;
     const newUser = new LoginResponse(
+      loggedinUser.firstname,
+      loggedinUser.lastname,
+      loggedinUser.id,
       loggedinUser.username,
       loggedinUser.password,
       loggedinUser.jwt,
-      loggedinUser.expDate
+      loggedinUser.expDate,
+      loggedinUser.role
     );
+    console.log(newUser);
     if (!newUser.getJwt()) {
       this.principal.next(newUser);
       this.isLogin.next(true);

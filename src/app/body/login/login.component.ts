@@ -27,15 +27,15 @@ export class LoginComponent implements OnInit {
   iserror = false;
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.email]),
+      username: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required),
     });
   }
   authenticate() {
     this.spinnerService.requestStarted();
     this.loginrequest = new LoginRequest(
       this.loginForm.get('username').value,
-      this.loginForm.get('password').value
+      this.loginForm.get('password').value,
     );
     this.loginservice.login(this.loginrequest).subscribe(
       (data: LoginResponse) => {

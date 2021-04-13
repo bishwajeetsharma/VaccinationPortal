@@ -19,7 +19,8 @@ export class AuthenticationServiceService implements HttpInterceptor {
           data !== null &&
           req.url !== environment.api_config.base_url + 'user/registeruser' &&
           req.url !== environment.api_config.base_url + 'doctor/registerdoctor' &&
-          req.url !== environment.api_config.base_url + 'authenticate/login' 
+          req.url !== environment.api_config.base_url + 'authenticate/login' &&
+          req.url !== environment.api_config.base_url + 'fetch/user' 
         ) {
           console.log("interceptor worked!");
           let modifiedurl = req.clone({

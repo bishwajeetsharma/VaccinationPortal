@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 })
 export class UserDashboardComponent implements OnInit {
   constructor(private service: LoginLogoutService, private http: HttpClient) {}
-
   ngOnInit(): void {
     
   }
