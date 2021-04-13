@@ -26,6 +26,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 import {NgChatModule} from 'ng-chat';
+import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,8 @@ import {NgChatModule} from 'ng-chat';
     UserRegisterFormComponent,
     RegisterDialogComponent,
     UserDashboardComponent,
-    ChatboxComponent
+    ChatboxComponent,
+    DoctorRegisterComponent
   ],
   entryComponents: [LoginComponent],
   imports: [

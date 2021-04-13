@@ -1,19 +1,36 @@
 <app-progress-spinner></app-progress-spinner>
 <mat-dialog-content class="mat-typography">
-  <div class="alert alert-danger" *ngIf="iserror">{{errormsg}}</div>
-<form [formGroup]="loginForm" (ngSubmit)="authenticate()">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" id="email" class="form-control" formControlName="username">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" id="password" class="form-control" formControlName="password">
-  </div>
-  <div>
-    <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button>
-  </div>
-</form>
+  <!-- <div class="alert alert-danger" *ngIf="iserror">{{ errormsg }}</div> -->
+  <h2><p class="text-center text-black-50">Login to MRA</p></h2>
+  <form [formGroup]="loginForm" (ngSubmit)="authenticate()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        formControlName="username"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        formControlName="password"
+      />
+    </div>
+    <div>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+    </div>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

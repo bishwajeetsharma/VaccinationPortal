@@ -31,8 +31,8 @@ export class UserRegisterFormComponent implements OnInit {
     let date = new Date();
     config.maxDate = {
       year: date.getFullYear(),
-      month: date.getMonth() + 1 ,
-      day: date.getDate()
+      month: date.getMonth() + 1,
+      day: date.getDate(),
     };
     config.minDate = { year: 1900, month: 1, day: 1 };
   }
@@ -100,7 +100,10 @@ export class UserRegisterFormComponent implements OnInit {
         this.spinnerService.requestEnded();
         let message = data;
         console.log(message);
-        this.toastrService.success(message, 'Registration Successful');
+        this.toastrService.success(
+          'Congratulations. Registration Completed!',
+          'Registration Successful'
+        );
       },
       (error) => {
         this.spinnerService.resetSpinner();

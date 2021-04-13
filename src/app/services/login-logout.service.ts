@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../model/login-request.model';
 import { LoginResponse } from '../model/login-response.model';
 import { tap } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 @Injectable({
@@ -80,5 +80,9 @@ export class LoginLogoutService {
       this.isLogin.next(true);
       this.autologout(newUser.getExpDate() - new Date().getTime());
     }
+  }
+
+  getLoginObserver(): Observable<boolean> {
+    return this.isLogin.asObservable();
   }
 }
