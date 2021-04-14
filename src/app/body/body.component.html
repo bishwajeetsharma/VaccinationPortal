@@ -152,5 +152,13 @@
   </div>
 </div>
 <ng-template #isLoggedout>
-  <app-user-dashboard></app-user-dashboard>
+  <div class="jumbotron">
+    <div *ngIf="role === 'user'"><app-user-dashboard></app-user-dashboard></div>
+    <div *ngIf="role === 'doctor'">
+      <app-doctor-dashboard></app-doctor-dashboard>
+    </div>
+    <div *ngIf="role === 'admin'">
+      <app-user-dashboard></app-user-dashboard>
+    </div>
+  </div>
 </ng-template>
