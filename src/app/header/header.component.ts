@@ -4,6 +4,7 @@ import { DialogComponent } from '../util_module/dialog/dialog.component';
 import { UtilService } from '../services/util.service';
 import { RegisterDialogComponent } from '../util_module/register-dialog/register-dialog.component';
 import { LoginLogoutService } from '../services/login-logout.service';
+import { UserRegistrationService } from '../services/user-registration.service';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +15,13 @@ export class HeaderComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private utilService: UtilService,
-    private loginservice: LoginLogoutService
+    private loginservice: LoginLogoutService,
+    private registrationService: UserRegistrationService
   ) {}
   show: boolean;
   ngOnInit(): void {}
+
   openDialog() {
-    console.log('Login clicked');
     this.utilService.loadDataSetSpinner();
     setTimeout(() => {
       this.utilService.loadedDataUnsetSpinner();
@@ -36,10 +38,14 @@ export class HeaderComponent implements OnInit {
       console.log('Dialog Closed');
     });
   }
+  
   openRegisterDialog() {
     const registerDialog = this.dialog.open(RegisterDialogComponent, {
       width: '500px',
       height: 'auto',
+    });
+    this.registrationService.isRegistrationSuccess.subscribe((resp) => {
+      if (resp) registerDialog.close();
     });
   }
 }

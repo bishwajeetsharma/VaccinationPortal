@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { DoctorRegisterData } from '../model/doctor-register-data.model';
 import { UserRegisterData } from '../model/user-register-data.model';
 import { environment } from './../../environments/environment';
@@ -9,6 +9,9 @@ import { environment } from './../../environments/environment';
   providedIn: 'root',
 })
 export class UserRegistrationService {
+
+  isRegistrationSuccess = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient) {}
 
   fetchStates(): Observable<any> {

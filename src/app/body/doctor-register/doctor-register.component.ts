@@ -171,6 +171,7 @@ export class DoctorRegisterComponent implements OnInit {
       (resp) => {
         this.spinnerService.requestEnded();
         this.toastrService.success(resp.message, 'Registration Successful');
+        this.service.isRegistrationSuccess.next(true);
       },
       (error) => {
         this.spinnerService.resetSpinner();
