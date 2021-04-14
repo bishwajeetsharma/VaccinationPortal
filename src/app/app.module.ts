@@ -27,6 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 import {NgChatModule} from 'ng-chat';
 import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.component';
+import { DoctorDashboardComponent } from './body/doctor-dashboard/doctor-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.
     RegisterDialogComponent,
     UserDashboardComponent,
     ChatboxComponent,
-    DoctorRegisterComponent
+    DoctorRegisterComponent,
+    DoctorDashboardComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
