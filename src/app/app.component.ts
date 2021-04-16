@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   constructor(
     private spinnerService: SpinnerService,
     private cdRef: ChangeDetectorRef,
-    private loginservice:LoginLogoutService
+    private loginservice: LoginLogoutService
   ) {}
 
   ngAfterViewChecked(): void {
@@ -38,6 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
     }, 3000);
     this.cdRef.detectChanges();
      this.loginservice.autoLogin();
+        
   }
 
   ngAfterViewInit(): void {

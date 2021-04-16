@@ -1,0 +1,64 @@
+<!-- <app-progress-spinner></app-progress-spinner> -->
+<mat-form-field style="width: 100%">
+  <mat-label>Filter</mat-label>
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Try Filtering on any Field Here"
+    #input
+  />
+</mat-form-field>
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8"
+  style="width: 100%"
+>
+  <ng-container matColumnDef="bookingId">
+    <mat-header-cell *matHeaderCellDef>Booking Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.bookingId }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="firstName">
+    <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="vaccine">
+    <mat-header-cell *matHeaderCellDef>Vaccine</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.vaccine }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="bookingDate">
+    <mat-header-cell *matHeaderCellDef>Booking Date</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.bookingDate }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="url">
+    <mat-header-cell *matHeaderCellDef>File</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><a href="{{ element.url }}">File Download</a></mat-cell
+    >
+  </ng-container>
+
+  <ng-container matColumnDef="button">
+    <mat-header-cell *matHeaderCellDef>Evaluation</mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index"
+      ><button class="btn btn-primary" (click)="selectedRow(i)">Evaluate</button></mat-cell
+    >
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">
+      No data matching the filter "{{ input.value }}"
+    </td>
+  </tr>
+</table>

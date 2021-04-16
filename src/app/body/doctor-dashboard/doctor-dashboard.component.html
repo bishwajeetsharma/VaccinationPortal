@@ -1,0 +1,16 @@
+<app-progress-spinner></app-progress-spinner>
+<mat-tab-group
+  mat-align-tabs="center"
+  #tabRef
+  (selectedTabChange)="onTabChange(tabRef.selectedIndex)"
+>
+  <mat-tab label="Pending Approvals"
+    ><app-doctor-pending-approvals></app-doctor-pending-approvals
+  ></mat-tab>
+  <mat-tab label="Approved Details"
+    ><app-doctor-approved></app-doctor-approved
+  ></mat-tab>
+  <mat-tab label="Rejected Details"
+    ><app-doctor-rejected></app-doctor-rejected
+  ></mat-tab>
+</mat-tab-group>

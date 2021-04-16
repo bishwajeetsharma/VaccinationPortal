@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.spinnerService.requestStarted();
     this.loginrequest = new LoginRequest(
       this.loginForm.get('username').value,
-      this.loginForm.get('password').value,
+      this.loginForm.get('password').value
     );
     this.loginservice.login(this.loginrequest).subscribe(
       (data: LoginResponse) => {
@@ -44,18 +44,22 @@ export class LoginComponent implements OnInit {
           'Login Successful'
         );
 
-        console.log(data);
+        // console.log(data);
         this.loginresponse = data;
         this.spinnerService.requestEnded();
         this.loginservice.isLogin.next(true);
-        this.router.navigate(['/dashboard']);
+        const loggedinUser = JSON.parse(localStorage.getItem('presentLogin'));
+        console.log('Login Role =', loggedinUser.role);
+        if (loggedinUser.role === 'user')
+          this.router.navigate(['/userDashboard']);
+        else if (loggedinUser.role === 'doctor')
+          this.router.navigate(['/doctorDashboard/pendingApprovals']);
+        else if (loggedinUser.role === 'admin')
+          this.router.navigate(['/adminDashboard']);
       },
       (error: HttpErrorResponse) => {
         this.errormsg = error.error.message;
-        this.toastrservice.error(
-          this.errormsg,
-          'Login Failed'
-        );
+        this.toastrservice.error(this.errormsg, 'Login Failed');
         this.spinnerService.resetSpinner();
         console.log(error);
         this.iserror = true;
