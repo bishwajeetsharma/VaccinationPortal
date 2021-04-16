@@ -1,3 +1,6 @@
+import { DoctorRejectedComponent } from './body/doctor-dashboard/doctor-rejected/doctor-rejected.component';
+import { DoctorApprovedComponent } from './body/doctor-dashboard/doctor-approved/doctor-approved.component';
+import { DoctorPendingApprovalsComponent } from './body/doctor-dashboard/doctor-pending-approvals/doctor-pending-approvals.component';
 import { DoctorDashboardComponent } from './body/doctor-dashboard/doctor-dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,8 +20,12 @@ const routes: Routes = [
     path: 'doctorDashboard',
     component: DoctorDashboardComponent,
     canActivate: [AuthenticationGuard],
-    canActivateChild: [AuthenticationGuard],
-    children: [],
+    // canActivateChild: [AuthenticationGuard],
+    children: [
+      { path: 'pendingApprovals', component: DoctorPendingApprovalsComponent },
+      { path: 'doctorApproved', component: DoctorApprovedComponent },
+      { path: 'doctorRejected', component: DoctorRejectedComponent },
+    ],
   },
   { path: '**', redirectTo: '' },
 ];

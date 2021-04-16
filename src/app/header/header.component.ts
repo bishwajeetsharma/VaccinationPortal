@@ -1,9 +1,9 @@
+import { LoginLogoutService } from 'src/app/services/login-logout.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../util_module/dialog/dialog.component';
 import { UtilService } from '../services/util.service';
 import { RegisterDialogComponent } from '../util_module/register-dialog/register-dialog.component';
-import { LoginLogoutService } from '../services/login-logout.service';
 import { UserRegistrationService } from '../services/user-registration.service';
 
 @Component({
@@ -16,10 +16,26 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     private utilService: UtilService,
     private loginservice: LoginLogoutService,
-    private registrationService: UserRegistrationService
+    private registrationService: UserRegistrationService,
+    private loginService: LoginLogoutService
   ) {}
   show: boolean;
-  ngOnInit(): void {}
+  accountManage: boolean = false;
+  accountName: string = 'Account Manage';
+
+  ngOnInit(): void {
+    this.loginService.isLogin.subscribe((resp) => {
+      this.accountManage = resp;
+      if (this.accountManage) {
+        let accountInfo = JSON.parse(localStorage.getItem('presentLogin'));
+        if (accountInfo.role === 'doctor')
+          this.accountName =
+            'Dr. ' + accountInfo.firstname + ' ' + accountInfo.lastname;
+        else
+          this.accountName = accountInfo.firstname + ' ' + accountInfo.lastname;
+      }
+    });
+  }
 
   openDialog() {
     this.utilService.loadDataSetSpinner();
@@ -38,7 +54,7 @@ export class HeaderComponent implements OnInit {
       console.log('Dialog Closed');
     });
   }
-  
+
   openRegisterDialog() {
     const registerDialog = this.dialog.open(RegisterDialogComponent, {
       width: '500px',
@@ -47,5 +63,10 @@ export class HeaderComponent implements OnInit {
     this.registrationService.isRegistrationSuccess.subscribe((resp) => {
       if (resp) registerDialog.close();
     });
+  }
+
+  logout() {
+    this.loginService.logout();
+    this.accountName = 'Account Manage';
   }
 }

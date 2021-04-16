@@ -28,6 +28,14 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
 import {NgChatModule} from 'ng-chat';
 import { DoctorRegisterComponent } from './body/doctor-register/doctor-register.component';
 import { DoctorDashboardComponent } from './body/doctor-dashboard/doctor-dashboard.component';
+import { DoctorPendingApprovalsComponent } from './body/doctor-dashboard/doctor-pending-approvals/doctor-pending-approvals.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { DoctorApprovedComponent } from './body/doctor-dashboard/doctor-approved/doctor-approved.component';
+import { DoctorRejectedComponent } from './body/doctor-dashboard/doctor-rejected/doctor-rejected.component';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -44,7 +52,10 @@ import { DoctorDashboardComponent } from './body/doctor-dashboard/doctor-dashboa
     UserDashboardComponent,
     ChatboxComponent,
     DoctorRegisterComponent,
-    DoctorDashboardComponent
+    DoctorDashboardComponent,
+    DoctorPendingApprovalsComponent,
+    DoctorApprovedComponent,
+    DoctorRejectedComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
@@ -65,6 +76,11 @@ import { DoctorDashboardComponent } from './body/doctor-dashboard/doctor-dashboa
     MatDialogModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

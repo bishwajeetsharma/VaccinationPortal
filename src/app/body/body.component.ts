@@ -16,7 +16,6 @@ export class BodyComponent implements OnInit {
       if (data) {
         const loggedinUser = JSON.parse(localStorage.getItem('presentLogin'));
         this.role = loggedinUser.role;
-        console.log('Role = ', this.role);
       }
     });
   }

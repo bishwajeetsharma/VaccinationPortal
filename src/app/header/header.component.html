@@ -24,19 +24,32 @@
         data-toggle="dropdown"
         appDropdown
       >
-        Account Manage
+        {{accountName}}
       </a>
 
       <div class="dropdown-menu">
-        <a class="dropdown-item" (click)="openDialog()" style="cursor: pointer"
-          >Login</a
-        >
-        <a
-          class="dropdown-item"
-          (click)="openRegisterDialog()"
-          style="cursor: pointer"
-          >Sign Up</a
-        >
+        <div *ngIf="!accountManage; else showLogout">
+          <a
+            class="dropdown-item"
+            (click)="openDialog()"
+            style="cursor: pointer"
+            >Login</a
+          >
+          <a
+            class="dropdown-item"
+            (click)="openRegisterDialog()"
+            style="cursor: pointer"
+            >Sign Up</a
+          >
+        </div>
+        <ng-template #showLogout>
+          <a
+            class="dropdown-item"
+            (click)="logout()"
+            style="cursor: pointer"
+            >Logout</a
+          >
+        </ng-template>
       </div>
     </li>
   </div>
