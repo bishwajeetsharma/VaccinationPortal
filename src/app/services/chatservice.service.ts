@@ -6,6 +6,7 @@ import * as SockJS from 'sockjs-client';
 import { LoginLogoutService } from './login-logout.service';
 import { Chat } from '../model/chat.model';
 import { BehaviorSubject } from 'rxjs';
+import { MessageRequest } from '../model/messageRequest.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -52,5 +53,13 @@ export class ChatserviceService {
   }
   sendMessage(chat: Chat) {
     this.stompClient.send('/message', {}, JSON.stringify(chat));
+  }
+  messageRequest: any;
+  fetchMessageHistory(destinaryId: any) {
+    this.messageRequest = new MessageRequest(this.id, destinaryId);
+    return this.http.post(
+      environment.api_config.base_url + 'messagehistory',
+      this.messageRequest
+    );
   }
 }
