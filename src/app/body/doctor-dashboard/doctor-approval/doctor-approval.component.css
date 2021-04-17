@@ -1,0 +1,28 @@
+.center {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.help-block {
+    font: italic;
+    color: red;
+}
+
+/* .container {
+    height: 200px;
+    position: relative;
+} */
+
+.vertical-center {
+    /* margin: 0;
+     position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%); */
+    margin-left: 40%;
+}
