@@ -1,18 +1,28 @@
+import { Appointment } from './../../../model/appointment.model';
 import { map } from 'rxjs/operators';
 import { PendingApprovals } from './../../../model/pending-approvals.model';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from './../../../services/spinner.service';
 import { DoctorsService } from './../../../services/doctors.service';
-import { Component, OnInit } from '@angular/core';
-import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbDateParserFormatter,
+  NgbDatepickerConfig,
+} from '@ng-bootstrap/ng-bootstrap';
+import { Dosage } from 'src/app/model/dosage.model';
 
 @Component({
   selector: 'app-doctor-approval',
   templateUrl: './doctor-approval.component.html',
   styleUrls: ['./doctor-approval.component.css'],
 })
-export class DoctorApprovalComponent implements OnInit {
+export class DoctorApprovalComponent implements OnInit, AfterViewChecked {
   doctorValidateForm: FormGroup;
   vaccineAvailability: boolean = false;
   vaccineAvailabilityMessage: string = '';
@@ -37,7 +47,9 @@ export class DoctorApprovalComponent implements OnInit {
     private doctorService: DoctorsService,
     private spinnerService: SpinnerService,
     private toastrService: ToastrService,
-    private config: NgbDatepickerConfig
+    private config: NgbDatepickerConfig,
+    private parserFormatter: NgbDateParserFormatter,
+    private cdRef: ChangeDetectorRef
   ) {
     this.doctorValidateForm = new FormGroup({
       dosages: new FormArray([]),
@@ -53,6 +65,10 @@ export class DoctorApprovalComponent implements OnInit {
 
   ngOnInit(): void {
     this.addDosages();
+  }
+
+  ngAfterViewChecked(): void {
+    this.cdRef.detectChanges();
   }
 
   addDosages() {
@@ -102,6 +118,7 @@ export class DoctorApprovalComponent implements OnInit {
         (error) => {
           this.vaccineAvailabilityMessage =
             'Error Occured while checking Availabilty';
+          console.log(error);
           this.spinnerService.resetSpinner();
         }
       );
@@ -119,7 +136,52 @@ export class DoctorApprovalComponent implements OnInit {
   getHospitalSelected(hospital: string) {
     console.log('selected hospital =', hospital);
   }
-  onSubmit() {
+  onSubmit(approvedStatus: string) {
     console.log(this.doctorValidateForm);
+    this.spinnerService.requestStarted();
+    let username = this.doctorService.getSelectedPendingApproval()['userName'];
+    let doctorUsername = JSON.parse(localStorage.getItem('presentLogin'))
+      .username;
+    let vaccineName = this.doctorService.getSelectedPendingApproval()[
+      'vaccine'
+    ];
+    let formValues = this.doctorValidateForm.value;
+    let approved = approvedStatus;
+    let dosages: Dosage[] = [];
+    if (approved === 'YES') {
+      for (let i = 0; i < formValues['dosages'].length; i++) {
+        let dos = formValues['dosages'][i];
+        let dosage = new Dosage(
+          i + 1,
+          this.parserFormatter.format(dos['date']),
+          dos['time'],
+          dos['hospital']
+        );
+        dosages.push(dosage);
+      }
+    }
+    let appointment = new Appointment(
+      this.doctorService.getSelectedPendingApproval()['bookingId'],
+      username,
+      doctorUsername,
+      vaccineName,
+      dosages,
+      approved,
+      formValues['comments']
+    );
+    console.log('Final object =', appointment);
+    this.doctorService.appointmentBooking(appointment).subscribe(
+      (resp) => {
+        this.spinnerService.requestEnded();
+        this.doctorService.setDialogClosed(true);
+        this.toastrService.success(resp.message, 'Vaccination Approved!!');
+      },
+      (error) => {
+        console.log(error);
+        this.toastrService.error(error.error.message);
+        this.doctorService.setDialogClosed(true);
+        this.spinnerService.resetSpinner();
+      }
+    );
   }
 }

@@ -56,7 +56,6 @@ export class DoctorPendingApprovalsComponent implements OnInit {
     this.spinnerService.requestStarted();
     this.doctorService.getPendingApprovals(loggedInDoctor.username).subscribe(
       (resp) => {
-        this.spinnerService.requestEnded();
         this.toastrService.success(
           'Successfully Fetched all Approvals Requirement!',
           'Successfully Fetched Approvals!'
@@ -81,6 +80,7 @@ export class DoctorPendingApprovalsComponent implements OnInit {
         this.length = this.dataSource.data.length;
         console.log(this.length);
         this.dataSource.paginator = this.paginator;
+        this.spinnerService.requestEnded();
       },
       (error) => {
         console.log(error);
@@ -107,6 +107,11 @@ export class DoctorPendingApprovalsComponent implements OnInit {
       width: '700px',
       height: '500px',
     });
+    if (this.doctorService.getDialogClosed()) {
+      dialogRef.close();
+      this.loadPendingApprovals();
+      this.doctorService.setDialogClosed(false);
+    }
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog Closed');
     });

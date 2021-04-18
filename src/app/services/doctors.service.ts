@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
+import { Appointment } from '../model/appointment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ import { map, tap } from 'rxjs/operators';
 export class DoctorsService {
   tabChange = new BehaviorSubject<string>('pendingApprovals');
   selectedPendingApproval: PendingApprovals;
+  dialogClose: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -46,5 +48,20 @@ export class DoctorsService {
           .set('vaccine', vaccineName),
       }
     );
+  }
+
+  appointmentBooking(appointment: Appointment): Observable<any> {
+    return this.http.post(
+      environment.api_config.base_url + 'doctor/vaccineAppointment',
+      appointment
+    );
+  }
+
+  setDialogClosed(val: boolean) {
+    this.dialogClose = val;
+  }
+
+  getDialogClosed() {
+    return this.dialogClose;
   }
 }
