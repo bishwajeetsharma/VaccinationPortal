@@ -8,7 +8,9 @@ export class PendingApprovals {
     private firstName: string,
     private lastName: string,
     private vaccine: string,
-    private bookingDate: string,
-    private status : string
+    private bookingDate: Date,
+    private status: string,
+    private userName: string,
+    private dosage: number
   ) {}
 }

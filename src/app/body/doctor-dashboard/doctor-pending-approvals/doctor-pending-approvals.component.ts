@@ -1,9 +1,12 @@
+import { PendingApprovalComponent } from './../../../util_module/pending-approval/pending-approval.component';
 import { PendingApprovals } from './../../../model/pending-approvals.model';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from './../../../services/spinner.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DoctorsService } from 'src/app/services/doctors.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-doctor-pending-approvals',
@@ -12,7 +15,11 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class DoctorPendingApprovalsComponent implements OnInit {
   // private pendingApprovals: PendingApprovals[] = [];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource();
+  length: any;
+  pageSizeOptions: number[] = [5, 10];
+  pageSize = 5;
   displayedColumns: string[] = [
     'bookingId',
     'firstName',
@@ -26,7 +33,8 @@ export class DoctorPendingApprovalsComponent implements OnInit {
   constructor(
     private doctorService: DoctorsService,
     private spinnerService: SpinnerService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    public dialog: MatDialog
   ) {
     this.dataSource = new MatTableDataSource();
   }
@@ -48,7 +56,6 @@ export class DoctorPendingApprovalsComponent implements OnInit {
     this.spinnerService.requestStarted();
     this.doctorService.getPendingApprovals(loggedInDoctor.username).subscribe(
       (resp) => {
-        this.spinnerService.requestEnded();
         this.toastrService.success(
           'Successfully Fetched all Approvals Requirement!',
           'Successfully Fetched Approvals!'
@@ -64,10 +71,16 @@ export class DoctorPendingApprovalsComponent implements OnInit {
             item['lastName'],
             item['vaccine'],
             item['bookingDate'],
-            item['status']
+            item['status'],
+            item['userName'],
+            item['dosage']
           );
         });
         this.dataSource = new MatTableDataSource(pendingApprovals);
+        this.length = this.dataSource.data.length;
+        console.log(this.length);
+        this.dataSource.paginator = this.paginator;
+        this.spinnerService.requestEnded();
       },
       (error) => {
         console.log(error);
@@ -81,6 +94,26 @@ export class DoctorPendingApprovalsComponent implements OnInit {
   }
 
   selectedRow(id: number) {
-    console.log(this.dataSource.data[id]);
+    let pendingApproval: PendingApprovals = (this.dataSource.data[
+      id
+    ] as unknown) as PendingApprovals;
+    this.doctorService.setSelectedPendingApproval(pendingApproval);
+    console.log(this.doctorService.getSelectedPendingApproval());
+    this.openPendingApprovalDialog();
+  }
+
+  openPendingApprovalDialog() {
+    const dialogRef = this.dialog.open(PendingApprovalComponent, {
+      width: '700px',
+      height: '500px',
+    });
+    if (this.doctorService.getDialogClosed()) {
+      dialogRef.close();
+      this.loadPendingApprovals();
+      this.doctorService.setDialogClosed(false);
+    }
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog Closed');
+    });
   }
 }

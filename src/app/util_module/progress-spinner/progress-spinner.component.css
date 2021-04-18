@@ -2,7 +2,7 @@
     border-radius: 10px;
     height: 70px;
     left: 50%;
-    position: absolute;
+    position: fixed;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 70px;

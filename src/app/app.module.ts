@@ -36,6 +36,9 @@ import { MatInputModule } from '@angular/material/input';
 import { DoctorApprovedComponent } from './body/doctor-dashboard/doctor-approved/doctor-approved.component';
 import { DoctorRejectedComponent } from './body/doctor-dashboard/doctor-rejected/doctor-rejected.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { PendingApprovalComponent } from './util_module/pending-approval/pending-approval.component';
+import { DoctorApprovalComponent } from './body/doctor-dashboard/doctor-approval/doctor-approval.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,9 @@ import {MatButtonModule} from '@angular/material/button';
     DoctorDashboardComponent,
     DoctorPendingApprovalsComponent,
     DoctorApprovedComponent,
-    DoctorRejectedComponent
+    DoctorRejectedComponent,
+    PendingApprovalComponent,
+    DoctorApprovalComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
@@ -81,6 +86,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatPaginatorModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
