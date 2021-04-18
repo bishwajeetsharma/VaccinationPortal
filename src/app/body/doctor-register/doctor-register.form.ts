@@ -37,7 +37,11 @@ export class DoctorRegisterForm {
       // hospitals: new FormArray([]),
 
       authdata: new FormGroup({
-        username: new FormControl('', [Validators.required, Validators.email]),
+        username: new FormControl('', [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^.+@gmail.com$'),
+        ]),
         password: new FormControl('', [
           Validators.required,
           Validators.pattern(
