@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { UserRegisterFormComponent } from './body/user-register-form-component/user-register-form.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { AuthenticationGuard } from './authentication.guard';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin-dashboard.component';
 const routes: Routes = [
   { path: '', component: AppComponent },
   { path: 'user-register', component: UserRegisterFormComponent },
@@ -26,6 +27,11 @@ const routes: Routes = [
       { path: 'doctorApproved', component: DoctorApprovedComponent },
       { path: 'doctorRejected', component: DoctorRejectedComponent },
     ],
+  },
+  {
+    path: 'adminDashboard',
+    component:AdminDashboardComponent,
+    canActivate:[AuthenticationGuard]
   },
   { path: '**', redirectTo: '' },
 ];

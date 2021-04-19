@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   accountName: string = 'Account Manage';
 
   ngOnInit(): void {
+    
     this.loginService.isLogin.subscribe((resp) => {
       this.accountManage = resp;
       if (this.accountManage) {
