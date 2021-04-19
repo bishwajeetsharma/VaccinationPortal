@@ -100,6 +100,7 @@ export class UserRegisterFormComponent implements OnInit {
         this.spinnerService.requestEnded();
         let message = data;
         console.log(message);
+        this.service.isRegistrationSuccess.next(true);
         this.toastrService.success(
           'Congratulations. Registration Completed!',
           'Registration Successful'
