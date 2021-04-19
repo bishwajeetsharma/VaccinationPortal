@@ -1,8 +1,0 @@
-{
-    "/api/*":{
-        "target":"http://battuta.medunes.net",
-        "secure":false,
-        "logLevel":"debug",
-        "changeOrigin":true
-    }
-}
