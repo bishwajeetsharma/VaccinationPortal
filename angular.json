@@ -71,7 +71,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "VaccinationPortal:build:production"
+              "browserTarget": "VaccinationPortal:build:production",
+              "proxyConfig": "proxy.config.json"
             }
           }
         },
