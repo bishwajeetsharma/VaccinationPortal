@@ -38,13 +38,16 @@ export class UserDashboardComponent implements OnInit {
   }
   fetchVaccines() {
     this.userDashboardService.fetchVaccines().subscribe((data: string) => {
-      for (var i = 0; i < data.length; i++) this.VaccineList.push(data[i]);
+      let vaccines=[];
+      for (var i = 0; i < data.length; i++) vaccines.push(data[i]);
+      this.VaccineList=vaccines;
     });
   }
   fetchDoctors() {
     this.userDashboardService.fetchDoctors().subscribe((data: any) => {
+      let doctorlist=[];
       for (var i = 0; i < data.length; i++)
-        this.DoctorList.push(
+        doctorlist.push(
           new DoctorDetails(
             data[i]['did'],
             data[i]['firstname'],
@@ -53,6 +56,7 @@ export class UserDashboardComponent implements OnInit {
             data[i]['regNo']
           )
         );
+        this.DoctorList=doctorlist;
     });
   }
   onSubmit() {
@@ -69,6 +73,7 @@ export class UserDashboardComponent implements OnInit {
           this.spinnerService.resetSpinner();
         }
       );
+      this.bookingform.reset();
   }
   logout() {
     this.service.logout();

@@ -39,6 +39,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { PendingApprovalComponent } from './util_module/pending-approval/pending-approval.component';
 import { DoctorApprovalComponent } from './body/doctor-dashboard/doctor-approval/doctor-approval.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin-dashboard.component';
+import { AdminVaccineUpdateComponent } from './admin-dashboard/admin-vaccine-update/admin-vaccine-update.component';
+import { AdminVaccineDeleteComponent } from './admin-dashboard/admin-vaccine-delete/admin-vaccine-delete.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,10 @@ import { DoctorApprovalComponent } from './body/doctor-dashboard/doctor-approval
     DoctorApprovedComponent,
     DoctorRejectedComponent,
     PendingApprovalComponent,
-    DoctorApprovalComponent
+    DoctorApprovalComponent,
+    AdminDashboardComponent,
+    AdminVaccineUpdateComponent,
+    AdminVaccineDeleteComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
