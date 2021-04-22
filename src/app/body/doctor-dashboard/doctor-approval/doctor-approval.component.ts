@@ -173,14 +173,14 @@ export class DoctorApprovalComponent implements OnInit, AfterViewChecked {
     this.doctorService.appointmentBooking(appointment).subscribe(
       (resp) => {
         this.spinnerService.requestEnded();
-        this.doctorService.setDialogClosed(true);
         this.toastrService.success(resp.message, 'Vaccination Approved!!');
+        this.doctorService.setDialogCloseValue(true);
       },
       (error) => {
         console.log(error);
         this.toastrService.error(error.error.message);
-        this.doctorService.setDialogClosed(true);
         this.spinnerService.resetSpinner();
+        this.doctorService.setDialogCloseValue(true);
       }
     );
   }

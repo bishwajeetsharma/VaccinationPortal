@@ -37,15 +37,16 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
       this.spinner = false;
     }, 3000);
     this.cdRef.detectChanges();
-     this.loginservice.autoLogin();
-        
+    this.loginservice.autoLogin();
   }
 
   ngAfterViewInit(): void {
     this.spinnerService.requestStarted();
     this.spinnerService.getSpinnerObserver().subscribe((status) => {
+      console.log('Status =', status);
       if (status === 'start') this.showOverlay = true;
       else if (status == 'stop') this.showOverlay = false;
+      console.log('overlay =', this.showOverlay);
     });
     this.cdRef.detectChanges();
   }

@@ -44,6 +44,11 @@ export class DoctorPendingApprovalsComponent implements OnInit {
       console.log(resp);
       if (resp === 'pendingApprovals') this.loadPendingApprovals();
     });
+    this.doctorService.getDialogCloseValue().subscribe((resp) => {
+      if (resp) {
+        this.loadPendingApprovals();
+      }
+    });
   }
 
   applyFilter(event: Event) {
@@ -107,11 +112,12 @@ export class DoctorPendingApprovalsComponent implements OnInit {
       width: '700px',
       height: '500px',
     });
-    if (this.doctorService.getDialogClosed()) {
-      dialogRef.close();
-      this.loadPendingApprovals();
-      this.doctorService.setDialogClosed(false);
-    }
+    this.doctorService.getDialogCloseValue().subscribe((resp) => {
+      if (resp) {
+        dialogRef.close();
+        this.doctorService.setDialogCloseValue(false);
+      }
+    });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog Closed');
     });

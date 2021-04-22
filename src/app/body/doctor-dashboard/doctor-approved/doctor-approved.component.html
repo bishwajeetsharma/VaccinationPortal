@@ -1,1 +1,69 @@
-<p>doctor-approved works!</p>
+<!-- <app-progress-spinner></app-progress-spinner> -->
+<mat-form-field style="width: 100%">
+  <mat-label>Filter</mat-label>
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Try Filtering on any Field Here"
+    #input
+  />
+</mat-form-field>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" style="width: 100%">
+    <ng-container matColumnDef="bookingId">
+      <mat-header-cell *matHeaderCellDef>Booking Id</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.bookingId }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="vaccine">
+      <mat-header-cell *matHeaderCellDef>Vaccine</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.vaccine }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="bookingDate">
+      <mat-header-cell *matHeaderCellDef>Booking Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.bookingDate }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef>File</mat-header-cell>
+      <mat-cell *matCellDef="let element"
+        ><a href="{{ element.url }}">File Download</a></mat-cell
+      >
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+      <mat-cell *matCellDef="let element"
+        ><h2 style="color: green">&#x2713;</h2></mat-cell
+      >
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

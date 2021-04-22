@@ -12,7 +12,7 @@ import { Appointment } from '../model/appointment.model';
 export class DoctorsService {
   tabChange = new BehaviorSubject<string>('pendingApprovals');
   selectedPendingApproval: PendingApprovals;
-  dialogClose: boolean = false;
+  dialogClose = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
 
@@ -57,11 +57,23 @@ export class DoctorsService {
     );
   }
 
-  setDialogClosed(val: boolean) {
-    this.dialogClose = val;
+  getDialogCloseValue(): Observable<boolean> {
+    return this.dialogClose.asObservable();
   }
 
-  getDialogClosed() {
-    return this.dialogClose;
+  setDialogCloseValue(val: boolean) {
+    this.dialogClose.next(val);
+  }
+
+  getApprovedApprovals(userName: string): Observable<any> {
+    return this.http.get(
+      environment.api_config.base_url + 'doctor/approvedApprovals/' + userName
+    );
+  }
+
+   getRejectedApprovals(userName: string): Observable<any> {
+    return this.http.get(
+      environment.api_config.base_url + 'doctor/rejectedApprovals/' + userName
+    );
   }
 }
