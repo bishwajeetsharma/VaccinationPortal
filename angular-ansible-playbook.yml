@@ -1,0 +1,11 @@
+---
+  - hosts: k8s-servers
+    become: true
+    tasks:
+     - name: copy kubernetes configuration file
+       copy:
+        src: /opt/k8s-files/angular-deployment.yml
+        dest: /opt/k8s
+     - name: create angular deployment
+       shell: kubectl apply -f /opt/k8s/angular-deployment.yml	  
+     
