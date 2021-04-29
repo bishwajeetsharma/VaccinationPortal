@@ -1,6 +1,5 @@
 ---
   - hosts: k8s-servers
-    become: true
     tasks:
      - name: copy kubernetes configuration file
        copy:
