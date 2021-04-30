@@ -65,7 +65,7 @@
           >
         </div>
         <div class="row">
-          <div class="form-group col-lg-6 col-sm-6 col-xs-6">
+          <div class="form-group col-lg-4 col-sm-4 col-xs-4">
             <label for="vaccine">Vaccine Name</label>
             <input
               type="text"
@@ -94,6 +94,23 @@
                 vaccineform.get('dosage').touched
               "
               >*Dosage is required</span
+            >
+          </div>
+          <div class="form-group col-lg-4 col-sm-4 col-xs-4">
+            <label for="dosage">No of Vaccine Vials</label>
+            <input
+              type="text"
+              id="vaccineNo"
+              class="form-control"
+              formControlName="vaccineNo"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                vaccineform.get('vaccineNo').invalid &&
+                vaccineform.get('vaccineNo').touched
+              "
+              >*No of Vaccine Vials is required</span
             >
           </div>
         </div>

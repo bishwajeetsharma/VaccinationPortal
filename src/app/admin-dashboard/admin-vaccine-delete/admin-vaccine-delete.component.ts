@@ -10,27 +10,27 @@ import { VaccineDetail } from 'src/app/model/vaccine-detail.model';
 @Component({
   selector: 'app-admin-vaccine-delete',
   templateUrl: './admin-vaccine-delete.component.html',
-  styleUrls: ['./admin-vaccine-delete.component.css']
+  styleUrls: ['./admin-vaccine-delete.component.css'],
 })
 export class AdminVaccineDeleteComponent implements OnInit {
   vaccineform: FormGroup;
   Hospitals: HospitalDetail[] = [];
   Cities: string[] = [];
   States: string[] = [];
-  Vaccines:VaccineDetail[]=[];
+  Vaccines: VaccineDetail[] = [];
   constructor(
     private spinnerService: SpinnerService,
     private toastrService: ToastrService,
     private adminService: AdminDashboardService,
-    private userRegistrationService:UserRegistrationService
+    private userRegistrationService: UserRegistrationService
   ) {}
 
   ngOnInit(): void {
     this.vaccineform = new FormGroup({
-      state: new FormControl(null,Validators.required),
-      city: new FormControl(null,Validators.required),
+      state: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
       hospital: new FormControl(null, Validators.required),
-      vaccine: new FormControl(null,Validators.required),
+      vaccine: new FormControl(null, Validators.required),
     });
     this.userRegistrationService.fetchStates().subscribe(
       (data: any) => {
@@ -39,11 +39,11 @@ export class AdminVaccineDeleteComponent implements OnInit {
           'Successfully fetched Response'
         );
         this.spinnerService.requestEnded();
-        let states=[];
+        let states = [];
         for (var i = 0; i < data.length; i++) states.push(data[i].region);
-        this.States=states;
+        this.States = states;
       },
-      (error:HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         this.toastrService.error(
           'Response for States Failed',
           'Failure in fetching Response'
@@ -76,61 +76,76 @@ export class AdminVaccineDeleteComponent implements OnInit {
       }
     );
   }
-  fetchHospitals(state:string,city:string) {
+  fetchHospitals(state: string, city: string) {
     this.spinnerService.requestStarted();
-    this.adminService.fetchHospitals(state,city).subscribe((data: any) => {
-      this.toastrService.success(
-        'Received Response for Hospitals',
-        'Successfully fetched Response'
-      );
-      this.spinnerService.requestEnded();
-      let hospitals=[];
-      for (var i = 0; i < data.length; i++)
-      {
-        hospitals.push(
-          new HospitalDetail(
-            data[i][0],
-            data[i][1],
-          )
+    this.adminService.fetchHospitals(state, city).subscribe(
+      (data: any) => {
+        this.toastrService.success(
+          'Received Response for Hospitals',
+          'Successfully fetched Response'
+        );
+        this.spinnerService.requestEnded();
+        let hospitals = [];
+        for (var i = 0; i < data.length; i++) {
+          hospitals.push(new HospitalDetail(data[i][0], data[i][1]));
+        }
+        this.Hospitals = hospitals;
+      },
+      (error: HttpErrorResponse) => {
+        this.spinnerService.resetSpinner();
+        this.toastrService.error(
+          error.error.message,
+          'Failed to fetch hospitals!'
         );
       }
-      this.Hospitals=hospitals;
-    },(error:HttpErrorResponse) => {
-      this.spinnerService.resetSpinner();
-      this.toastrService.error(error.error.message, 'Failed to fetch hospitals!');
-    });
-  }
-  fetchVaccines(hid:any){
-    this.spinnerService.requestStarted();
-   this.adminService.fetchVaccines(hid).subscribe((data:any)=>{
-    this.toastrService.success(
-      'Received Response for Vaccines',
-      'Successfully fetched Response'
     );
-    this.spinnerService.requestEnded();
-     let vaccinesList=[];
-     for(var i=0;i<data.length;i++)
-     vaccinesList.push(new VaccineDetail(data[i]['vaccineName'],data[i]['dosage'],data[i]['hid']));
-     this.Vaccines=vaccinesList;
-   },(error:HttpErrorResponse) => {
-    this.spinnerService.resetSpinner();
-    this.toastrService.error(error.error.message, 'Failed to fetch vaccines!');
-  })
+  }
+  fetchVaccines(hid: any) {
+    this.spinnerService.requestStarted();
+    this.adminService.fetchVaccines(hid).subscribe(
+      (data: any) => {
+        this.toastrService.success(
+          'Received Response for Vaccines',
+          'Successfully fetched Response'
+        );
+        this.spinnerService.requestEnded();
+        let vaccinesList = [];
+        for (var i = 0; i < data.length; i++)
+          vaccinesList.push(
+            new VaccineDetail(
+              data[i]['vaccineName'],
+              data[i]['dosage'],
+              data[i]['hid']
+            )
+          );
+        this.Vaccines = vaccinesList;
+      },
+      (error: HttpErrorResponse) => {
+        this.spinnerService.resetSpinner();
+        this.toastrService.error(
+          error.error.message,
+          'Failed to fetch vaccines!'
+        );
+      }
+    );
   }
   onSubmit() {
     this.spinnerService.requestStarted();
-    let hid:number=this.vaccineform.get('hospital').value;
-    let vid:number=this.vaccineform.get('vaccine').value;
-    const deletebody:{hid:number,vid:number}={hid,vid};
-    this.adminService.deleteVaccine(deletebody).subscribe(data=>{
-      this.spinnerService.requestEnded();
-      this.toastrService.success(data['message']);
-    }, (error: HttpErrorResponse) => {
-      this.toastrService.error(error.error.message, 'Failed!');
-      this.spinnerService.resetSpinner();
-    },()=>{
-      this.vaccineform.reset();
-    })
+    let hid: number = this.vaccineform.get('hospital').value;
+    let vid: number = this.vaccineform.get('vaccine').value;
+    const deletebody: { hid: number; vid: number } = { hid, vid };
+    this.adminService.deleteVaccine(deletebody).subscribe(
+      (data) => {
+        this.spinnerService.requestEnded();
+        this.toastrService.success(data['message']);
+      },
+      (error: HttpErrorResponse) => {
+        this.toastrService.error(error.error.message, 'Failed!');
+        this.spinnerService.resetSpinner();
+      },
+      () => {
+        this.vaccineform.reset();
+      }
+    );
   }
-
 }

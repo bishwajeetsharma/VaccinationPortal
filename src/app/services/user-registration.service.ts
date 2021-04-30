@@ -15,20 +15,11 @@ export class UserRegistrationService {
   constructor(private http: HttpClient) {}
 
   fetchStates(): Observable<any> {
-    return this.http.get(environment.api_config.states_api, {
-      params: new HttpParams().set(
-        'key',
-        environment.api_config.external_api_key
-      ),
-    });
+    return this.http.get(environment.api_config.states_api);
   }
 
   fetchCityService(state: string): Observable<any> {
-    return this.http.get(environment.api_config.cities_api, {
-      params: new HttpParams()
-        .set('region', state)
-        .set('key', environment.api_config.external_api_key),
-    });
+    return this.http.get(environment.api_config.cities_api + state);
   }
 
   registerservice(userregisterdata: UserRegisterData): Observable<any> {
