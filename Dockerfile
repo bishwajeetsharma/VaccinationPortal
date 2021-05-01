@@ -9,7 +9,7 @@ COPY . .
 RUN npm install
 RUN npm run build --prod
 
-CMD ["ng", "serve", "--prod", "--proxy-config", "proxy.conf.json"]
+CMD ["npm", "start"]
 
 FROM nginx:alpine
 EXPOSE 80
