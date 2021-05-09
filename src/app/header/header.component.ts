@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
   accountName: string = 'Account Manage';
 
   ngOnInit(): void {
-    
     this.loginService.isLogin.subscribe((resp) => {
       this.accountManage = resp;
       if (this.accountManage) {
@@ -62,7 +61,10 @@ export class HeaderComponent implements OnInit {
       height: 'auto',
     });
     this.registrationService.isRegistrationSuccess.subscribe((resp) => {
-      if (resp) registerDialog.close();
+      if (resp) {
+        registerDialog.close();
+        this.registrationService.isRegistrationSuccess.next(false);
+      }
     });
   }
 
