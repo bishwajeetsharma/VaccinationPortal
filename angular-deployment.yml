@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: angular-deployment-component
-          image: satpal101070/frontendimage:latest
+          image: satpal101070/angularimage:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
